@@ -7,7 +7,8 @@ package com.ssf.core;
  */
 public class ArrayContainer implements Container<Character, Matcher> {
 
-    private Matcher[] container = new Matcher[0];
+    public char[] keys = new char[0];
+    public Matcher[] container = new Matcher[0];
     
     /* (non-Javadoc)
      * @see com.hyxq.pointcut.keywords.Container#put(java.lang.Object, java.lang.Object)
@@ -15,9 +16,14 @@ public class ArrayContainer implements Container<Character, Matcher> {
     @Override
     public void put(Character key, Matcher value) {
         
+        char[] newKeys = new char[keys.length + 1];
+        System.arraycopy(keys, 0, newKeys, 0, keys.length);
+        newKeys[keys.length] = key;
+        keys = newKeys;
+        
         Matcher[] target = new Matcher[container.length + 1];
         System.arraycopy(container, 0, target, 0, container.length);
-        target[target.length - 1] = value;
+        target[container.length] = value;
         container = target;
     }
 
@@ -27,8 +33,8 @@ public class ArrayContainer implements Container<Character, Matcher> {
     @Override
     public Matcher get(Character key) {
         
-        for(int i = 0; i < container.length; i ++) {
-            if(container[i].path == key) return container[i];
+        for(int i = 0; i < keys.length; i ++) {
+            if(keys[i] == key) return container[i];
         }
         return null;
     }
@@ -42,8 +48,4 @@ public class ArrayContainer implements Container<Character, Matcher> {
         return container.length;
     }
 
-    public Matcher[] getContainer() {
-        
-        return this.container;
-    }
 }

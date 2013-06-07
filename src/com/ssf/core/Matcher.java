@@ -13,36 +13,8 @@ public class Matcher {
 
     private static final Matcher root = new Matcher();
     
-    public char path;
     public char[] ends = new char[0];
     public Container<Character, Matcher> nexts = new BlanceContainer();
-    
-    public static void main(String[] args) {
-        
-        String s = "大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽，" +
-                "千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东" +
-                "去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流" +
-                "人物,大江东去浪淘尽，千古风流人物" + new Object().toString();
-        long start = System.nanoTime();
-        for(int i = 0; i < 100000; i ++) {
-            Matcher.isIllegal(s);
-        }
-        System.out.println((System.nanoTime() - start) / 1000000.0);
-        System.out.println(Matcher.isIllegal("大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽"));
-        System.out.println(Matcher.isIllegal("王涵"));
-        System.out.println(Matcher.isIllegal("王涵大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽"));
-        System.out.println(Matcher.isIllegal("大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽王涵"));
-        System.out.println(Matcher.isIllegal("王涵大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽王涵"));
-        System.out.println(Matcher.isIllegal("'"));
-        System.out.println(Matcher.isIllegal("大江东去浪淘尽，千古风'流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽"));
-        System.out.println(Matcher.isIllegal("'大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽"));
-        System.out.println(Matcher.isIllegal("大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽'"));
-        System.out.println(Matcher.isIllegal("'大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽'"));
-        System.out.println(Matcher.isIllegal("王涵万"));
-        System.out.println(Matcher.isIllegal("王涵万大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽"));
-        System.out.println(Matcher.isIllegal("大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽王涵万"));
-        System.out.println(Matcher.isIllegal("王涵万大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽王涵万"));
-    }
     
     /** 
      * 加载敏感词，初始化时使用
@@ -107,7 +79,6 @@ public class Matcher {
         Matcher matcher = nexts.get(c);
         if(matcher != null) return matcher;
         matcher = new Matcher();
-        matcher.path = c;
         nexts.put(c, matcher);
         return matcher;
     }

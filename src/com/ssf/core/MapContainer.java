@@ -31,8 +31,9 @@ public class MapContainer implements Container<Character, Matcher> {
     }
 
     public MapContainer(ArrayContainer src) {
-        for(Matcher m : src.getContainer()) {
-            map.put(m.path, m);
+
+        for(int i = 0; i < src.keys.length; i ++) {
+            map.put(src.keys[i], src.container[i]);
         }
     }
     
