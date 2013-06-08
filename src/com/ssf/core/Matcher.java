@@ -13,8 +13,8 @@ public class Matcher {
 
     private static final Matcher root = new Matcher();
     
-    public char[] ends = new char[0];
-    public Container<Character, Matcher> nexts = new BlanceContainer();
+    private char[] ends = new char[0];
+    private Container<Character, Matcher> nexts = new BlanceContainer();
     
     /** 
      * 加载敏感词，初始化时使用
@@ -37,11 +37,17 @@ public class Matcher {
         }
         return false;
     }
+    
+    public static synchronized void clear() {
         
+        root.ends = new char[0];
+        root.nexts = new BlanceContainer();
+    }
+    
     /** 
      * 构建敏感词树
      */
-    private void parse(char[] keywords, int start) {
+    private synchronized void parse(char[] keywords, int start) {
         if(start < 0 || start > keywords.length - 1) {
             return;
         }
@@ -64,7 +70,7 @@ public class Matcher {
     /** 
      * 扩展 Ends 数组
      */
-    private synchronized void addEnds(char end) {
+    private void addEnds(char end) {
         if(contains(ends, end)) return;
         char[] newEnds = new char[ends.length + 1];
         System.arraycopy(ends, 0, newEnds, 0, ends.length);
@@ -75,14 +81,14 @@ public class Matcher {
     /** 
      * create 为 True 时构建并返回下级结点， False 时返回不构建下级结点
      */
-    private synchronized Matcher createNextMatcher(char c) {
+    private Matcher createNextMatcher(char c) {
         Matcher matcher = nexts.get(c);
         if(matcher != null) return matcher;
         matcher = new Matcher();
         nexts.put(c, matcher);
         return matcher;
     }
-    private synchronized Matcher getNextMatcher(char c) {
+    private Matcher getNextMatcher(char c) {
         return nexts.get(c);
     }
     private boolean contains(char[] sortArrays, char target) {

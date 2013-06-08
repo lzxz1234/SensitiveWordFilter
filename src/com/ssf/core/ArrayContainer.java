@@ -14,7 +14,7 @@ public class ArrayContainer implements Container<Character, Matcher> {
      * @see com.hyxq.pointcut.keywords.Container#put(java.lang.Object, java.lang.Object)
      */
     @Override
-    public void put(Character key, Matcher value) {
+    public synchronized void put(Character key, Matcher value) {
         
         char[] newKeys = new char[keys.length + 1];
         System.arraycopy(keys, 0, newKeys, 0, keys.length);
