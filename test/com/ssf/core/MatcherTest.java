@@ -36,7 +36,6 @@ public class MatcherTest {
         Assert.assertFalse(Matcher.isIllegal("大连习近平走访哥国农户摘花给彭丽媛闻香"));
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户摘花给彭丽媛闻香大连"));
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户大连摘花给彭丽媛闻香"));
-        Matcher.clear();
     }
     
     @Test
@@ -61,7 +60,7 @@ public class MatcherTest {
                 "去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流人物,大江东去浪淘尽，千古风流" +
                 "人物,大江东去浪淘尽，千古风流人物" + new Object().toString();
         long start = System.nanoTime();
-        for(int i = 0; i < 100000; i ++) {
+        for(int i = 0; i < 1000000; i ++) {
             Matcher.isIllegal(s);
         }
         System.out.println((System.nanoTime() - start) / 1000000.0);

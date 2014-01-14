@@ -5,7 +5,7 @@ package com.ssf.core;
  * @author lzxz1234<lzxz1234@gmail.com>
  * @version v1.0
  */
-public interface Container<K, V> {
+public interface Link<K, V> {
 
     public void put(K key, V value);
     public V get(K key);
