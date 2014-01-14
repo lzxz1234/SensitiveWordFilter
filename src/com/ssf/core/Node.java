@@ -29,9 +29,9 @@ public class Node {
         if(start < 0 || start > keywords.length - 1) return;
         
         if(start < keywords.length -  1) 
-            this.createNextMatcher(keywords[start]).parse(keywords, start + 1);
+            this.createNextNode(keywords[start]).parse(keywords, start + 1);
         else
-            this.addEnds(keywords[start]);
+            this.ends.add(keywords[start]);
     }
     
     /** 
@@ -40,32 +40,20 @@ public class Node {
     public boolean matches(char[] target, int start) {
         
         if(ends.contains(target[start])) return true;
-        Node matcher = this.getNextMatcher(target[start]);
+        Node matcher = nexts.get(target[start]);
         return (matcher == null || start + 1 == target.length) ? false : matcher.matches(target, start + 1);
-    }
-    
-    /** 
-     * 扩展 Ends 数组
-     */
-    private void addEnds(Character end) {
-        
-        this.ends.add(end);
     }
     
     /** 
      * create 为 True 时构建并返回下级结点， False 时返回不构建下级结点
      */
-    private Node createNextMatcher(Character c) {
+    private Node createNextNode(Character c) {
         
         Node matcher = nexts.get(c);
         if(matcher != null) return matcher;
         matcher = new Node();
         nexts.put(c, matcher);
         return matcher;
-    }
-    private Node getNextMatcher(Character c) {
-        
-        return nexts.get(c);
     }
     
 }
