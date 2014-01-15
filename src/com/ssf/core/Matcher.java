@@ -9,7 +9,7 @@ import com.ssf.utils.StringUtils;
  */
 public class Matcher {
 
-    private static Node root = new Node();
+    private static Node root = new BranchNode();
     
     /** 
      * 加载敏感词，初始化时使用
@@ -22,7 +22,7 @@ public class Matcher {
     
     public static void clear() {
         
-        root = new Node();
+        root = new BranchNode();
     }
     
     /** 
