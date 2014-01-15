@@ -42,6 +42,7 @@ public class MatcherTest2 {
         for(int i = 0; i < 100000; i ++) {
             Matcher.isIllegal(getTestString());
         }
+        "".length();
         System.out.println((System.nanoTime() - start) / 1000000.0);
         System.out.println("测试文件长度：" + s.length());
         System.out.println("测试匹配结果：" + Matcher.isIllegal(s));

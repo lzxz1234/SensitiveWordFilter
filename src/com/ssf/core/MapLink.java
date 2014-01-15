@@ -24,11 +24,6 @@ public class MapLink implements Link<Character, Node> {
         return map.get(key);
     }
 
-    public MapLink(SingleLink src) {
-
-        map.put(src.key, src.container);
-    }
-    
     public MapLink() {
     }
     
