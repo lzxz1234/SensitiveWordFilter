@@ -8,8 +8,6 @@
  */
 package com.ssf.core;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @class Node
@@ -18,7 +16,7 @@ import java.util.Set;
  */
 public class Node {
 
-    private Set<Character> ends = new HashSet<Character>();
+    private static final Node LEAF = new Node();
     private Link<Character, Node> nexts = new MapLink();
     
     /** 
@@ -31,7 +29,7 @@ public class Node {
         if(start < keywords.length -  1) 
             this.createNextNode(keywords[start]).parse(keywords, start + 1);
         else
-            this.ends.add(keywords[start]);
+            this.nexts.put(keywords[start], LEAF);
     }
     
     /** 
@@ -39,8 +37,8 @@ public class Node {
      */
     public boolean matches(char[] target, int start) {
         
-        if(ends.contains(target[start])) return true;
         Node matcher = nexts.get(target[start]);
+        if(matcher == LEAF) return true;
         return (matcher == null || start + 1 == target.length) ? false : matcher.matches(target, start + 1);
     }
     

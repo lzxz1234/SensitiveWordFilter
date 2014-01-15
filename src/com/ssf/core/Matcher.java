@@ -9,7 +9,7 @@ import com.ssf.utils.StringUtils;
  */
 public class Matcher {
 
-    private static final Node root = new Node();
+    private static Node root = new Node();
     
     /** 
      * 加载敏感词，初始化时使用
@@ -18,6 +18,11 @@ public class Matcher {
         
         if(StringUtils.isEmpty(keyword)) return;
         root.parse(keyword.toCharArray(), 0);
+    }
+    
+    public static void clear() {
+        
+        root = new Node();
     }
     
     /** 

@@ -36,6 +36,8 @@ public class MatcherTest {
         Assert.assertFalse(Matcher.isIllegal("大连习近平走访哥国农户摘花给彭丽媛闻香"));
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户摘花给彭丽媛闻香大连"));
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户大连摘花给彭丽媛闻香"));
+        
+        Matcher.clear();
     }
     
     @Test
