@@ -4,8 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.ssf.utils.IOUtils;
@@ -24,6 +23,7 @@ public class MatcherTest {
         Matcher.addKeyWord("成");
         
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户摘花给彭丽媛闻香"));
+        
         Assert.assertTrue(Matcher.isIllegal("大江习近平走访哥国农户摘花给彭丽媛闻香"));
         Assert.assertTrue(Matcher.isIllegal("习近平走访哥国农户摘花给彭丽媛闻香大江"));
         Assert.assertTrue(Matcher.isIllegal("习近平走访哥国农户大江摘花给彭丽媛闻香"));
@@ -33,6 +33,17 @@ public class MatcherTest {
         Assert.assertTrue(Matcher.isIllegal("成习近平走访哥国农户摘花给彭丽媛闻香"));
         Assert.assertTrue(Matcher.isIllegal("习近平走访哥国农户摘花给彭丽媛闻香成"));
         Assert.assertTrue(Matcher.isIllegal("习近平走访哥国农户成摘花给彭丽媛闻香"));
+        
+        Assert.assertTrue(Matcher.matches("大江习近平走访哥国农户摘花给彭丽媛闻香").maxHit().equals("大江"));
+        Assert.assertTrue(Matcher.matches("习近平走访哥国农户摘花给彭丽媛闻香大江").maxHit().equals("大江"));
+        Assert.assertTrue(Matcher.matches("习近平走访哥国农户大江摘花给彭丽媛闻香").maxHit().equals("大江"));
+        Assert.assertTrue(Matcher.matches("大学习近平走访哥国农户摘花给彭丽媛闻香").maxHit().equals("大学"));
+        Assert.assertTrue(Matcher.matches("习近平走访哥国农户摘花给彭丽媛闻香大学").maxHit().equals("大学"));
+        Assert.assertTrue(Matcher.matches("习近平走访哥国农户大学摘花给彭丽媛闻香").maxHit().equals("大学"));
+        Assert.assertTrue(Matcher.matches("成习近平走访哥国农户摘花给彭丽媛闻香").maxHit().equals("成"));
+        Assert.assertTrue(Matcher.matches("习近平走访哥国农户摘花给彭丽媛闻香成").maxHit().equals("成"));
+        Assert.assertTrue(Matcher.matches("习近平走访哥国农户成摘花给彭丽媛闻香").maxHit().equals("成"));
+        
         Assert.assertFalse(Matcher.isIllegal("大连习近平走访哥国农户摘花给彭丽媛闻香"));
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户摘花给彭丽媛闻香大连"));
         Assert.assertFalse(Matcher.isIllegal("习近平走访哥国农户大连摘花给彭丽媛闻香"));

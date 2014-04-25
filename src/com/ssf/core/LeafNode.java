@@ -13,21 +13,29 @@ package com.ssf.core;
  * @author lzxz1234<lzxz1234@gmail.com>
  * @version v1.0
  */
-public class LeafNode implements Node {
+public class LeafNode extends AbstractNode implements Node {
 
-    public static final LeafNode INS = new LeafNode();
+	private final Result RESULT_TRUE = new Result(this, true);
+	
+    public LeafNode(AbstractNode priorNode, String label) {
+    	
+    	super(priorNode, label);
+    }
     
-    private LeafNode() {}
-    
-    @Override
+    public LeafNode(BranchNode priorNode, char c) {
+		
+    	this(priorNode, String.valueOf(c));
+	}
+
+	@Override
     public void parse(char[] keywords, int start) {
         
     }
 
     @Override
-    public boolean matches(char[] target, int start) {
+    public Result matches(char[] target, int start) {
 
-        return true;
+        return RESULT_TRUE;
     }
 
 }

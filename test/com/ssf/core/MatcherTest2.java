@@ -39,7 +39,7 @@ public class MatcherTest2 {
         
         String s = getTestString();
         long start = System.nanoTime();
-        for(int i = 0; i < 100000; i ++) {
+        for(int i = 0; i < 1000000; i ++) {
             Matcher.isIllegal(getTestString());
         }
         "".length();

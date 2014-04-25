@@ -1,11 +1,3 @@
-/*
- * @title: BranchNode.java
- * @package com.ssf.core
- * @author lzxz1234<lzxz1234@gmail.com>
- * @date 2014-1-14 上午9:22:36
- * @version V1.0
- * Copyright (c) 2012 Aspirecn.com. All Right Reserved
- */
 package com.ssf.core;
 
 
@@ -14,9 +6,21 @@ package com.ssf.core;
  * @author lzxz1234<lzxz1234@gmail.com>
  * @version v1.0
  */
-public class BranchNode implements Node {
+public class BranchNode extends AbstractNode implements Node {
 
-    private Link<Character, Node> nexts = new MapLink();
+	private final Result RESULT_FALSE = new Result(this, false);
+	
+    public BranchNode(AbstractNode priorNode, String label) {
+    	
+		super(priorNode, label);
+	}
+
+	public BranchNode(BranchNode priorNode, Character c) {
+		
+		this(priorNode, c.toString());
+	}
+
+	private final Link<Character, Node> nexts = new MapLink();
     
     /** 
      * 构建敏感词树
@@ -28,17 +32,17 @@ public class BranchNode implements Node {
         if(start < keywords.length - 1) 
             this.createNextNode(keywords[start]).parse(keywords, start + 1);
         else
-            this.nexts.put(keywords[start], LeafNode.INS);
+            this.nexts.put(keywords[start], new LeafNode(this, keywords[start]));
     }
     
     /** 
      * 遍历敏感词树进行匹配测试
      */
-    public boolean matches(char[] target, int start) {
+    public Result matches(char[] target, int start) {
         
-        if(start == target.length) return false;
+        if(start == target.length) return RESULT_FALSE;
         Node matcher = nexts.get(target[start]);
-        return matcher == null ? false : matcher.matches(target, start + 1);
+        return matcher == null ? RESULT_FALSE : matcher.matches(target, start + 1);
     }
     
     /** 
@@ -48,7 +52,7 @@ public class BranchNode implements Node {
         
         Node matcher = nexts.get(c);
         if(matcher != null) return matcher;
-        matcher = new BranchNode();
+        matcher = new BranchNode(this, c);
         nexts.put(c, matcher);
         return matcher;
     }

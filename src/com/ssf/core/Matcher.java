@@ -9,7 +9,7 @@ import com.ssf.utils.StringUtils;
  */
 public class Matcher {
 
-    private static Node root = new BranchNode();
+    private static Node root = new BranchNode(null, "");
     
     /** 
      * 加载敏感词，初始化时使用
@@ -22,7 +22,7 @@ public class Matcher {
     
     public static void clear() {
         
-        root = new BranchNode();
+        root = new BranchNode(null, "");
     }
     
     /** 
@@ -30,12 +30,17 @@ public class Matcher {
      */
     public static boolean isIllegal(String content) {
         
-        if(StringUtils.isEmpty(content)) return false;
-        char[] chars = content.toCharArray();
-        for(int i = 0; i < chars.length; i ++) {
-            if(root.matches(chars, i)) return true;
-        }
-        return false;
+        return matches(content).isHit();
     }
     
+    public static Result matches(String content) {
+    	
+    	if(StringUtils.isEmpty(content)) return Result.ZERO_HIT;
+        char[] chars = content.toCharArray();
+        Result result;
+        for(int i = 0; i < chars.length; i ++) {
+            if((result = root.matches(chars, i)).isHit()) return result;
+        }
+        return Result.ZERO_HIT;
+    }
 }
