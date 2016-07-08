@@ -18,6 +18,7 @@ public class MatcherTest {
 
     @Test
     public void test() {
+        
         Matcher.addKeyWord("大江");
         Matcher.addKeyWord("大学");
         Matcher.addKeyWord("成");

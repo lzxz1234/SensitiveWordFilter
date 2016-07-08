@@ -27,12 +27,10 @@ public class LeafNode extends AbstractNode implements Node {
     	this(priorNode, String.valueOf(c));
 	}
 
-	@Override
     public void parse(char[] keywords, int start) {
         
     }
 
-    @Override
     public Result matches(char[] target, int start) {
 
         return RESULT_TRUE;

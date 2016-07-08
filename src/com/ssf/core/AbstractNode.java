@@ -14,7 +14,6 @@ public abstract class AbstractNode implements Node {
 		this.path = priorNode == null ? label : priorNode.path + label;
 	}
 	
-	@Override
 	public String path() {
 
 		return path;
