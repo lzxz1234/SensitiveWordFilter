@@ -1,5 +1,6 @@
 package com.ssf.core;
 
+import java.util.List;
 
 /**
  * @class BranchNode
@@ -55,6 +56,11 @@ public class BranchNode extends AbstractNode implements Node {
         matcher = new BranchNode(this, c);
         nexts.put(c, matcher);
         return matcher;
+    }
+
+    public List<Node> children() {
+
+        return this.nexts.values();
     }
     
 }

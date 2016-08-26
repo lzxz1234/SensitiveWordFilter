@@ -8,6 +8,9 @@
  */
 package com.ssf.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @class LeafNode
  * @author lzxz1234<lzxz1234@gmail.com>
@@ -34,6 +37,11 @@ public class LeafNode extends AbstractNode implements Node {
     public Result matches(char[] target, int start) {
 
         return RESULT_TRUE;
+    }
+
+    public List<Node> children() {
+        
+        return new ArrayList<Node>(0);
     }
 
 }

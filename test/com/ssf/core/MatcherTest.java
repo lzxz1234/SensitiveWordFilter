@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.ssf.WorldFilter;
 import com.ssf.utils.IOUtils;
 
 /**
@@ -16,6 +17,8 @@ import com.ssf.utils.IOUtils;
  */
 public class MatcherTest {
 
+    WorldFilter Matcher = new WorldFilter();
+    
     @Test
     public void test() {
         

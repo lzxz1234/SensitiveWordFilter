@@ -1,17 +1,10 @@
-/*
- * @title: MatcherTest2.java
- * @package com.ssf.core
- * @author lzxz1234<lzxz1234@gmail.com>
- * @date 2014-1-10 下午3:37:17
- * @version V1.0
- * Copyright (c) 2012 Aspirecn.com. All Right Reserved
- */
 package com.ssf.core;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.ssf.WorldFilter;
 import com.ssf.utils.IOUtils;
 
 /**
@@ -21,11 +14,13 @@ import com.ssf.utils.IOUtils;
  */
 public class MatcherTest2 {
 
-    public static void main(String[] args) {
+    static Matcher Matcher = new WorldFilter();
+    
+    public static void main(String[] args) throws Exception {
         
         InputStream is = null;
         try {
-            is = Thread.currentThread().getContextClassLoader().getResourceAsStream("keywords2");
+            is = Thread.currentThread().getContextClassLoader().getResourceAsStream("keywords");
             BufferedReader br = new BufferedReader(new InputStreamReader(is, "utf-8"));
             String tmp = null;
             while((tmp = br.readLine()) != null) {
@@ -37,17 +32,16 @@ public class MatcherTest2 {
             IOUtils.closeQuietly(is);
         }
         
-        String s = getTestString();
         long start = System.nanoTime();
-        for(int i = 0; i < 1000000; i ++) {
+        for(int i = 0; i < 100000; i ++) {
             Matcher.isIllegal(getTestString());
         }
         "".length();
         System.out.println((System.nanoTime() - start) / 1000000.0);
-        System.out.println("测试文件长度：" + s.length());
-        System.out.println("测试匹配结果：" + Matcher.isIllegal(s));
+        System.out.println("测试文件长度：" + getTestString().length());
+        System.out.println("测试匹配结果：" + Matcher.isIllegal(getTestString()));
     }
-    
+    public boolean m(String content, int index, char expect){return content.charAt(index) == expect; }
     public static String getTestString() {
         
         return  "好吧，既然大家都一致鄙视百度，为谷歌欢喜鼓舞的叫好，我就来插一脚，为百度打抱不平一下吧。\r\n" + 

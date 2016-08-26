@@ -7,10 +7,12 @@ package com.ssf.core;
  */
 public abstract class AbstractNode implements Node {
 
+    private final Node parent;
 	private final String path;
 	
 	public AbstractNode(AbstractNode priorNode, String label) {
 		
+	    this.parent = priorNode;
 		this.path = priorNode == null ? label : priorNode.path + label;
 	}
 	
@@ -18,5 +20,10 @@ public abstract class AbstractNode implements Node {
 
 		return path;
 	}
+
+    public Node parent() {
+        
+        return parent;
+    }
 
 }

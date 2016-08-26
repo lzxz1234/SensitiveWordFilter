@@ -1,6 +1,8 @@
 package com.ssf.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +29,11 @@ public class MapLink implements Link<Character, Node> {
     
     public int size() {
         return map.size();
+    }
+
+    public List<Node> values() {
+
+        return new ArrayList<Node>(map.values());
     }
 
 }
