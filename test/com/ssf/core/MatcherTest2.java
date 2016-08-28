@@ -14,6 +14,7 @@ import com.ssf.utils.IOUtils;
  */
 public class MatcherTest2 {
 
+    static int MAX_KEYWORDS = 1000;
     static Matcher Matcher = new WorldFilter();
     
     public static void main(String[] args) throws Exception {
@@ -23,7 +24,7 @@ public class MatcherTest2 {
             is = Thread.currentThread().getContextClassLoader().getResourceAsStream("keywords");
             BufferedReader br = new BufferedReader(new InputStreamReader(is, "utf-8"));
             String tmp = null;
-            while((tmp = br.readLine()) != null) {
+            while((tmp = br.readLine()) != null && MAX_KEYWORDS-- > 0) {
                 Matcher.addKeyWord(tmp);
             }
         } catch (Exception e) {
@@ -36,12 +37,10 @@ public class MatcherTest2 {
         for(int i = 0; i < 100000; i ++) {
             Matcher.isIllegal(getTestString());
         }
-        "".length();
         System.out.println((System.nanoTime() - start) / 1000000.0);
         System.out.println("测试文件长度：" + getTestString().length());
         System.out.println("测试匹配结果：" + Matcher.isIllegal(getTestString()));
     }
-    public boolean m(String content, int index, char expect){return content.charAt(index) == expect; }
     public static String getTestString() {
         
         return  "好吧，既然大家都一致鄙视百度，为谷歌欢喜鼓舞的叫好，我就来插一脚，为百度打抱不平一下吧。\r\n" + 
